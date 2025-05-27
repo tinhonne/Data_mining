@@ -10,7 +10,7 @@ start_time = datetime(2024, 11, 2, 5, 0, 0)
 rows = []
 for i in range(100):
     timestamp = start_time + timedelta(hours=6*i)
-    plant_id = 16
+    plant_id = 21
     soil_moisture = round(random.uniform(10, 40), 6)
     ambient_temp = round(random.uniform(20, 35), 6)
     soil_temp = round(random.uniform(15, 30), 6)

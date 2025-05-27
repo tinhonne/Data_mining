@@ -16,6 +16,19 @@ if os.path.exists(model_path):
 else:
     model = None
 
+def append_csv_without_header(src_path, dest_path):
+    # Đọc file nguồn, bỏ header nếu có
+    with open(src_path, 'r', encoding='utf-8') as f:
+        lines = f.readlines()
+    # Nếu dòng đầu là header, bỏ dòng đầu
+    if lines and (lines[0].lower().startswith('timestamp') or 'Plant_Health_Status' in lines[0]):
+        lines = lines[1:]
+    # Ghi nối vào file đích (bỏ header)
+    with open(dest_path, 'a', encoding='utf-8') as f:
+        for line in lines:
+            if line.strip():
+                f.write(line)
+
 @app.route("/predict", methods=["POST"])
 def predict():
     try:
@@ -53,18 +66,14 @@ def upload():
         return jsonify({'error': 'No selected file'}), 400
     temp_path = 'uploaded.csv'
     file.save(temp_path)
-    # Nối dữ liệu mới vào dữ liệu cũ (nếu có)
-    if os.path.exists('your_data.csv'):
-        df_old = pd.read_csv('your_data.csv')
-        df_new = pd.read_csv(temp_path)
-        df_all = pd.concat([df_old, df_new], ignore_index=True)
-        # Nếu muốn loại bỏ dòng trùng lặp hoàn toàn:
-        df_all = df_all.drop_duplicates()
-        df_all.to_csv('your_data.csv', index=False)
+    # Nếu your_data.csv chưa tồn tại, copy cả file (giữ header)
+    if not os.path.exists('your_data.csv'):
+        with open(temp_path, 'r', encoding='utf-8') as src, open('your_data.csv', 'w', encoding='utf-8') as dst:
+            dst.write(src.read())
     else:
-        os.rename(temp_path, 'your_data.csv')
-    if os.path.exists(temp_path):
-        os.remove(temp_path)
+        # Đảm bảo your_data.csv chỉ có một header duy nhất
+        append_csv_without_header(temp_path, 'your_data.csv')
+    os.remove(temp_path)
     os.system('python train_model_from_csv.py')
     return jsonify({'status': 'Đã cập nhật và train model với dữ liệu mới!'})
 
