@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Dự đoán sức khỏe cây trồng</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Dự đoán sức khỏe cây trồng 🌿</h2>
+    <form id="sensorForm">
+      <input type="number" step="any" name="Soil_Moisture" placeholder="Soil Moisture" required>
+      <input type="number" step="any" name="Ambient_Temperature" placeholder="Ambient Temperature" required>
+      <input type="number" step="any" name="Soil_Temperature" placeholder="Soil Temperature" required>
+      <input type="number" step="any" name="Humidity" placeholder="Humidity" required>
+      <input type="number" step="any" name="Light_Intensity" placeholder="Light Intensity" required>
+      <input type="number" step="any" name="Soil_pH" placeholder="Soil pH" required>
+      <input type="number" step="any" name="Nitrogen_Level" placeholder="Nitrogen Level" required>
+      <input type="number" step="any" name="Phosphorus_Level" placeholder="Phosphorus Level" required>
+      <input type="number" step="any" name="Potassium_Level" placeholder="Potassium Level" required>
+      <input type="number" step="any" name="Chlorophyll_Content" placeholder="Chlorophyll Content" required>
+      <input type="number" step="any" name="Electrochemical_Signal" placeholder="Electrochemical Signal" required>
+      <button type="submit">🌱 Dự Đoán</button>
+    </form>
+    <h3 id="result"></h3>
+  </div>
+  <script src="assets/script.js"></script>
+</body>
+</html>
