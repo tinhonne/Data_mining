@@ -23,6 +23,21 @@
       <button type="submit">🌱 Dự Đoán</button>
     </form>
     <h3 id="result"></h3>
+
+    <hr>
+    <h3>Cập nhật dữ liệu mới</h3>
+    <form id="uploadForm">
+      <input type="file" id="csvFile" accept=".csv" required>
+      <button type="submit">📤 Upload & Train</button>
+    </form>
+    <div id="uploadStatus"></div>
+
+    <hr>
+    <h3>Trạng thái mô hình</h3>
+    <div id="modelStatus">
+      <b>Số mẫu đã train:</b> <span id="soMauTrain">?</span><br>
+      <b>Các nhãn:</b> <span id="cacNhan">?</span>
+    </div>
   </div>
   <script src="assets/script.js"></script>
 </body>
